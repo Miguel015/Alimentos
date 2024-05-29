@@ -1,0 +1,248 @@
+﻿html, body {
+    overflow-x: hidden;
+}
+    body.no-scroll {
+        overflow: hidden;
+        position: fixed; /* Esto puede ayudar a prevenir el desplazamiento en algunos casos */
+        width: 100%;
+    }
+
+header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    transition: 0.6s;
+    padding: 1rem 3rem;
+    z-index: 10000;
+    box-sizing: border-box;
+}
+    header .logo img {
+        width: 17rem;
+        padding: 0 2rem;
+    }
+.my-logo img {
+    width: 11rem;
+    padding: 0.2rem 1rem;
+}
+
+header.sticky {
+    padding: 5px 100px;
+    background: #fff;
+}
+
+    header .logo {
+        position: relative;
+        font-weight: 700;
+        color: #fff;
+        text-decoration: none;
+        font-size: 2em;
+        text-transform: uppercase;
+        letter-spacing: 2px;
+        transition: 0.6s;
+    }
+
+    header ul {
+        position: relative;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-bottom: 0;
+    }
+
+        header ul li {
+            position: relative;
+            list-style: none;
+        }
+
+            header ul li a {
+                position: relative;
+                margin: 0 15px;
+                text-decoration: none;
+                color: #fff;
+                letter-spacing: 2px;
+                font-weight: 500;
+                transiton: 0.6s;
+            }
+
+    header.sticky .logo,
+    header.sticky li a {
+        color: #000;
+    }
+
+.link {
+    position: relative;
+    display: inline-block;
+    text-decoration: none;
+}
+
+    .link::before {
+        content: '';
+        position: absolute;
+        left: 0;
+        bottom: 0;
+        width: 100%;
+        height: 2px;
+        background-color: #ff196d;
+        border-radius: 4px;
+        scale: 0 1;
+        transform-origin: left;
+        transition: scale 0.25s;
+    }
+
+    .link:hover::before {
+        scale: 1;
+    }
+
+.cart-item-count {
+    color: #fff;
+    padding: 0 0.4rem;
+    border-radius: 100%;
+    background-color: #ff196d;
+    position: absolute;
+    right: 0rem;
+    top: -1rem;
+}
+/*Responsive Menu*/
+body.no-scroll {
+    position: fixed;
+    width: 100%;
+}
+.my-navbar-responsive {
+    display: none;
+}
+.my-nav-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 62px;
+}
+
+.my-navbar-responsive .my-menu-items {
+    display: flex;
+}
+
+.my-navbar-responsive .my-nav-container li {
+    list-style: none;
+}
+
+.my-navbar-responsive .my-nav-container a {
+    text-decoration: none;
+    color: #0e2431;
+    font-weight: 500;
+    font-size: 1.2rem;
+    padding: 0.7rem;
+}
+
+    .my-navbar-responsive .my-nav-container a:hover {
+        font-weight: bolder;
+    }
+
+.my-nav-container {
+    display: block;
+    position: relative;
+    height: 60px;
+}
+
+    .my-nav-container .my-checkbox {
+        position: absolute;
+        display: block;
+        height: 32px;
+        width: 32px;
+        top: 20px;
+        right: 20px;
+        z-index: 10000;
+        opacity: 0;
+        cursor: pointer;
+    }
+
+    .my-nav-container .my-hamburger-lines {
+        display: block;
+        height: 26px;
+        width: 32px;
+        position: absolute;
+        top: 17px;
+        right: 20px;
+        z-index: 2;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+    }
+
+        .my-nav-container .my-hamburger-lines .line {
+            display: block;
+            height: 4px;
+            width: 100%;
+            border-radius: 10px;
+            background: #0e2431;
+        }
+
+        .my-nav-container .my-hamburger-lines .line1 {
+            transform-origin: 0% 0%;
+            transition: transform 0.4s ease-in-out;
+        }
+
+        .my-nav-container .my-hamburger-lines .line2 {
+            transition: transform 0.2s ease-in-out;
+        }
+
+        .my-nav-container .my-hamburger-lines .line3 {
+            transform-origin: 0% 100%;
+            transition: transform 0.4s ease-in-out;
+        }
+
+.my-navbar-responsive .my-menu-items {
+    position: relative;
+    height: 92vh;
+    z-index: 1000;
+    padding-top: 120px;
+    background-color: white;
+    height: 100vh;
+    width: 100%;
+    transform: translateX(100%);
+    display: flex;
+    flex-direction: column;
+    margin-right: -40px;
+    padding-right: 50px;
+    transition: transform 0.5s ease-in-out;
+    text-align: center;
+}
+
+    .my-navbar-responsive .my-menu-items li {
+        margin-bottom: 1.2rem;
+        font-size: 1.5rem;
+        font-weight: 500;
+    }
+
+.my-nav-container input[type="checkbox"]:checked ~ .my-menu-items {
+    transform: translateX(0);
+    top: 3rem;
+}
+
+.my-nav-container input[type="checkbox"]:checked ~ .my-hamburger-lines .line1 {
+    transform: rotate(45deg);
+}
+
+.my-nav-container input[type="checkbox"]:checked ~ .my-hamburger-lines .line2 {
+    transform: scaleY(0);
+}
+
+.my-nav-container input[type="checkbox"]:checked ~ .my-hamburger-lines .line3 {
+    transform: rotate(-45deg);
+}
+
+.my-nav-container input[type="checkbox"]:checked ~ .my-logo {
+    display: none;
+}
+
+@media(max-width: 900px) {
+    header{
+        display:none;
+    }
+    .my-navbar-responsive {
+        display: block;
+    }
+}

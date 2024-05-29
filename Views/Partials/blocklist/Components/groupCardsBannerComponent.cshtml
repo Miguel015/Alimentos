@@ -1,0 +1,82 @@
+﻿@inherits Umbraco.Cms.Web.Common.Views.UmbracoViewPage<Umbraco.Cms.Core.Models.Blocks.BlockListItem>;
+@using ContentModels = Umbraco.Cms.Web.Common.PublishedModels;
+@using Umbraco.Cms.Core.Models.Blocks;
+@using Umbraco.Cms.Core.Models;
+@using Umbraco.Cms.Web.Common;
+@inject UmbracoHelper Umbraco;
+
+@{
+    var content = (ContentModels.GroupCardsBannerComponent)Model.Content;
+    var contentGroupCards = content?.Value<IEnumerable<BlockListItem>>("contentGroupCards").Select(x => x.Content);
+
+    //Elements Component
+    var ImageBannerCard = content.Value<IPublishedContent>("imageBannerCard");
+}
+
+@{
+    <section class="section-group-cards-banner">
+        <article class="section-group-cards-banner__container">
+            <div class="section-group-cards-banner__container__Banner">
+                <div class="section-group-cards-banner__container__Banner__content-img">
+                    <img loading="eager" src="@ImageBannerCard.Url()" alt="ImageBannerCard">
+                </div>
+                <div class="section-group-cards-banner__container__Banner__content-text">
+                    <h4>@content.Value("principalTitleBannerCard")</h4>
+                    <h1>@content.Value("sencodTitleBannerCard")</h1>
+                    <p>@content.Value("descriptionBannerCard")</p>
+                    @{
+                        //Element Button
+                        var linkBannerCards = content.Value<IEnumerable<Link>>("linkBannerCard");
+                        foreach (var linkBannerCard in linkBannerCards)
+                        {
+                            <a href="@linkBannerCard.Url">
+                                @linkBannerCard.Name
+                                <span class="content-icon">
+                                    <svg xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 448 512">
+                                        <path d="M438.6 278.6c12.5-12.5 12.5-32.8 0-45.3l-160-160c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L338.8 224 32 224c-17.7 0-32 14.3-32 32s14.3 32 32 32l306.7 0L233.4 393.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0l160-160z" />
+                                    </svg>
+                                </span>
+                            </a>
+                        }
+                    }
+                </div>
+            </div>
+
+            <div class="section-group-cards-banner__container__content-cards">
+                <div class="section-group-cards-banner__container__content-cards__card">
+                    @foreach (var card in contentGroupCards)
+                    {
+                        var IconCards = card.Value<IPublishedContent>("iconCard");
+
+                        <div class="section-group-cards-banner__container__content-cards__card__content-info">
+                            <div class="section-group-cards-banner__container__content-cards__card__content-info__content-icon">
+                                <img loading="eager" src="@IconCards.Url()" alt="icon-group-cards" class="icon-group-cards">
+                            </div>
+                        <div class="section-group-cards-banner__container__content-cards__card__content-info__content-text">
+                                <h5>@card.Value("titleCard")</h5>
+                                <p>@card.Value("descriptionCard")</p>
+
+                                @{
+                                //Element Button
+                                    var linkCards = card.Value<IEnumerable<Link>>("linkCard");
+                                    foreach (var linkCard in linkCards)
+                                    {
+                                        <a href="@linkCard.Url">
+                                        @linkCard.Name
+                                            <span class="content-icon">
+                                                <svg xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 448 512">
+                                                    <path d="M438.6 278.6c12.5-12.5 12.5-32.8 0-45.3l-160-160c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L338.8 224 32 224c-17.7 0-32 14.3-32 32s14.3 32 32 32l306.7 0L233.4 393.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0l160-160z" />
+                                                </svg>
+                                            </span>
+                                        </a>
+                                    }
+                                }
+                        </div>
+                    </div>
+                    }
+                </div>
+            </div>
+
+        </article>
+    </section>
+}

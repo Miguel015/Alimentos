@@ -1,0 +1,22 @@
+﻿@using Umbraco.Cms.Web.Common.PublishedModels;
+@inherits Umbraco.Cms.Web.Common.Views.UmbracoViewPage<ContentModels.AvailableProducts>
+@using ContentModels = Umbraco.Cms.Web.Common.PublishedModels;
+@{
+	Layout = "Master.cshtml";
+}
+
+@section head{
+	<link rel="stylesheet" href="~/css/availablePage.css">
+    <link rel="preload" href="/css/globalComponents.css" as="style">
+    <link rel="stylesheet" href="~/css/globalComponents.css">
+}
+
+@section body{
+	<script src="~/scripts/availablePage.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.js"></script>
+    <script src="~/scripts/bannerSliderHomePage.js"></script>
+    <script src='//npmcdn.com/isotope-layout@3/dist/isotope.pkgd.js'></script>
+	
+}
+
+@await Html.PartialAsync("AvailableProducts/_AvailableProducts")

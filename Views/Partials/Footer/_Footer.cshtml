@@ -1,0 +1,60 @@
+﻿@using Umbraco.Cms.Web.Common;
+@inject UmbracoHelper Umbraco;
+@using Umbraco.Cms.Core.Services;
+@using Umbraco.Cms.Core.Models.Blocks
+@using Umbraco.Cms.Core.Models
+
+@{
+    var footer = Umbraco.Content(Guid.Parse("fe9e4da4-9999-49e6-8072-a89676c1cc90"));
+    var Logo = footer.Value<IPublishedContent>("logo");
+    var structureFooter = footer.Value<IEnumerable<BlockListItem>>("listFooter");
+}
+
+<section class="Section-Footer">
+    <div class="header">
+        <!--Waves end-->
+        <div>
+            <svg class="waves" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+                 viewBox="0 24 150 28" preserveAspectRatio="none" shape-rendering="auto">
+                <defs>
+                    <path id="gentle-wave" d="M-160 44c30 0 58-18 88-18s 58 18 88 18 58-18 88-18 58 18 88 18 v44h-352z" />
+                </defs>
+                <g class="parallax">
+                    <use xlink:href="#gentle-wave" x="48" y="0" fill="rgba(255,255,255,0.7" />
+                    <use xlink:href="#gentle-wave" x="48" y="3" fill="rgba(255,255,255,0.5)" />
+                    <use xlink:href="#gentle-wave" x="48" y="5" fill="rgba(255,255,255,0.3)" />
+                    <use xlink:href="#gentle-wave" x="48" y="7" fill="#fff" />
+                </g>
+            </svg>
+        </div>
+        <!--Waves end-->
+        <!--Footer Structure-->
+        <div class="footer">
+            <div class="contain">
+                @foreach (var footerInfo in structureFooter)
+                {
+                    var titleFooterGroup = footerInfo.Content.Value<string>("titleInfoFooter");
+                    var ItemsFooterGroup = footerInfo.Content.Value<IEnumerable<BlockListItem>>("groupItemsFooter");
+
+                   <div class="col">
+                        <h1>@titleFooterGroup</h1>
+                        <ul>
+                            @foreach (var ItemsFooter in ItemsFooterGroup)
+                            {
+                                var textLink = ItemsFooter.Content.Value("nameItem");
+                                var linkUrl = ItemsFooter.Content.Value<Link>("ItemRedirect");
+
+                                <li><a href="@linkUrl.Url">@textLink</a></li>
+                            }
+                        </ul>
+                </div> 
+                }
+                <div class="col social">
+                    <img src="@Logo.Url()" alt="Logo" />
+                </div>
+                <div class="clearfix"></div>
+            </div>
+        </div>
+        <!--Footer Structure end-->
+    </div>
+</section>

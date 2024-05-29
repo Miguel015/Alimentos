@@ -1,0 +1,78 @@
+﻿@using Umbraco.Cms.Web.Common.PublishedModels;
+@inherits Umbraco.Cms.Web.Common.Views.UmbracoViewPage
+@using System.Globalization
+@{
+	Layout = null;
+}
+
+<!doctype html>
+<html lang="en">
+<head>
+
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.css" />
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+	<link rel="stylesheet" href="~/css/header.css">
+	<link rel="stylesheet" href="~/css/footer.css">
+	<link rel="preload" href="/css/globalComponents.css" as="style">
+	<link rel="stylesheet" href="~/css/globalComponents.css">
+
+
+	@*@if (Model.HasValue("pageTitle"))
+	{
+		<title>@Model.Value("pageTitle")</title>
+	}
+	else
+	{
+		<title>@Model.Name - Lexus</title>
+	}*@
+	@*<meta name="title" content="@Model.Value("sEOTitle")">
+	<meta name="description" content="@Model.Value("sEODescription")">*@
+	@*<link rel="shortcut icon" type="image/x-icon" sizes="16x16 32x32" href="/media/favicon_LEXUS.png">*@
+
+	@* PRELOADING RESOURCES *@
+	@*<link rel="preload" href="/css/global.css" as="style">*@
+
+	@* CALLING HEAD FILES *@
+	@*<link rel="stylesheet" href="/css/global.css">*@
+
+	@RenderSection("head", required: false)
+</head>
+	@await Html.PartialAsync("./Header/_Header")
+<body>
+
+	<!-- End Google Tag Manager (noscript) -->
+
+	<script>
+		window.addEventListener('mouseover', initLandbot, { once: true });
+		window.addEventListener('touchstart', initLandbot, { once: true });
+		var myLandbot;
+		function initLandbot() {
+			if (!myLandbot) {
+				var s = document.createElement('script'); s.type = 'text/javascript'; s.async = true;
+				s.addEventListener('load', function () {
+					var myLandbot = new Landbot.Livechat({
+						configUrl: 'https://storage.googleapis.com/landbot.online/v3/H-1770546-YS9I3394JLIUZHSW/index.json',
+					});
+				});
+				s.src = 'https://cdn.landbot.io/landbot-3/landbot-3.0.0.js';
+				var x = document.getElementsByTagName('script')[0];
+				x.parentNode.insertBefore(s, x);
+			}
+		}
+	</script>
+	<main>
+		@RenderBody()
+	</main>
+
+	@* CALLING BODY FILES *@
+	@RenderSection("body", required: false)
+	<script src="~/scripts/shoppingCart.js"></script>
+	<script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js'></script>
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+	@await Html.PartialAsync("./Footer/_Footer")
+	@*<script src="/scripts/header.js"></script>*@
+</body>
+</html>

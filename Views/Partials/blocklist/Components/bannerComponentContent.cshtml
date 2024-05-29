@@ -1,0 +1,48 @@
+﻿@inherits Umbraco.Cms.Web.Common.Views.UmbracoViewPage<Umbraco.Cms.Core.Models.Blocks.BlockListItem>;
+@using ContentModels = Umbraco.Cms.Web.Common.PublishedModels;
+@using Umbraco.Cms.Core.Models.Blocks;
+@using Umbraco.Cms.Core.Models;
+@using Umbraco.Cms.Web.Common;
+@inject UmbracoHelper Umbraco;
+
+@{
+    var content = (ContentModels.BannerComponentContent)Model.Content;
+    var heroBanners = content?.Value<IEnumerable<BlockListItem>>("contentBanner").Select(x => x.Content);
+}
+
+@{
+    //Primer elemento iterado
+    bool isFirstElement = true;
+
+    //Banner Component
+    var heroBannerImage = heroBanners.FirstOrDefault()?.Value<IPublishedContent>("imageBanner"); 
+
+    <section class="Section-Banner-principal">
+        <article class="Article-Content-Banner">
+            <!-- Swiper -->
+            <div class="swiper mySwiper">
+                <div class="swiper-wrapper">
+                    @foreach (var BannerInfo in heroBanners)
+                    {
+                        var imageBanner = BannerInfo.Value<IPublishedContent>("imageBanner");
+
+                        <div class="swiper-slide">
+                            <div class="Contentent-Image-Banner">
+                                <img loading="eager" src="@imageBanner.Url()" alt="imageModel">
+                                <span class="mask"></span>
+                            </div>
+                            <div class="swiper-slide-Content-Banner @(isFirstElement ? "first-element-Banner-Class" : "")">
+                                <h1>@BannerInfo.Value("titleBanner")</h1>
+                                <p>@BannerInfo.Value("descriptionBanner")</p>
+                            </div>
+                        </div>
+                        isFirstElement = false;
+                    }
+                </div>
+                <div class="swiper-button-next"></div>
+                <div class="swiper-button-prev"></div>
+                <div class="swiper-scrollbar"></div>
+            </div>
+        </article>
+    </section>
+}

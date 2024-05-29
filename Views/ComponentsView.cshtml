@@ -1,0 +1,19 @@
+﻿@using Umbraco.Cms.Web.Common.PublishedModels;
+@inherits Umbraco.Cms.Web.Common.Views.UmbracoViewPage<ContentModels.ComponentsView>
+@using ContentModels = Umbraco.Cms.Web.Common.PublishedModels;
+@{
+	Layout = "Master.cshtml";
+}
+
+@section head{
+        <link rel="preload" href="/css/globalComponents.css" as="style">
+        <link rel="stylesheet" href="~/css/globalComponents.css">
+
+}
+
+@section body{
+        <script src="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.js"></script>
+        <script src="~/scripts/bannerSliderHomePage.js"></script>
+}
+
+@Html.GetBlockListHtml(Model, "mainContent")

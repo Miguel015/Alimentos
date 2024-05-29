@@ -1,0 +1,195 @@
+﻿@using Umbraco.Cms.Core;
+@using Umbraco.Cms.Web.Common;
+@inject UmbracoHelper Umbraco;
+@using Umbraco.Cms.Core.Services;
+@using Umbraco.Cms.Core.Models.Blocks;
+@using System.Globalization
+
+
+@{
+    var AvailablePage = Umbraco.Content(Guid.Parse("4d186e72-ae3f-4b0d-b5d1-4e7239a570d3"));
+    var InfoBanners = AvailablePage.Value<IEnumerable<BlockListItem>>("contentBanner");
+    var CategoryStok = Umbraco.Content(Guid.Parse("f3b266f4-2f11-4339-849d-d891fd6a3ea2"));
+    var Categories = CategoryStok.Value<IEnumerable<BlockListItem>>("category");
+
+
+    int groupCounter = 1;  // Contador para los grupos
+    int radioIndex = 1;
+    int counter = 1;
+}
+
+<section class="Section-Banner-principal">
+    <article class="Article-Content-Banner">
+        <!-- Swiper -->
+        <div class="swiper mySwiper">
+            <div class="swiper-wrapper">
+                @foreach (var BannerInfo in InfoBanners)
+                {
+                    var imageBanner = BannerInfo.Content.Value<IPublishedContent>("imageBanner");
+                    <div class="swiper-slide">
+                        <div class="Contentent-Image-Banner">
+                            <img loading="eager" src="@imageBanner.Url()" alt="imageModel">
+                            <span class="mask"></span>
+                        </div>
+                        <div class="swiper-slide-Content-Banner">
+                            <h1>@BannerInfo.Content.Value("titleBanner")</h1>
+                            <p>@BannerInfo.Content.Value("descriptionBanner")</p>
+                        </div>
+                    </div>
+                }
+            </div>
+            <div class="swiper-scrollbar"></div>
+        </div>
+    </article>
+</section>
+<section class="Section-content-page">
+    <section class="Section-content-Avaible-Prod-page">
+        <div class="container">
+            <div class="mel-nav">
+                <div class="mel-filter-nav">
+                    <div class="accordion accordion-flush" id="categoryGallery">
+                        <div class="accordion-item">
+                            <button class="accordion-button collapsed mel-filter" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne" data-filter="*">
+                                All
+                            </button>
+                            <div id="flush-collapseOne" class="accordion-collapse collapse" data-bs-parent="#categoryGallery">
+                                 <div class="accordion-body">Todos los elementos disponibles de Stock.</div>
+                                <div class="accordion-body">
+                                    <div class="accordion accordion-flush" id="subAccordion-@(counter)">
+                                        <div class="accordion-item">
+                                            <h2 class="accordion-header">
+                                                <button class="accordion-button collapsed filtersCategory" type="button" data-bs-toggle="collapse" data-bs-target="#subFlush-collapseOne-@(counter)" aria-expanded="false" aria-controls="subFlush-collapseOne-@(counter)">
+                                                    Ordenar por...
+                                                </button>
+                                            </h2>
+                                            <div id="subFlush-collapseOne-@(counter)" class="accordion-collapse collapse contentSubFilter">
+                                                @*filters class*@
+                                                <div class="form-check">
+                                                    <button class="subFilterBtn" id="priceSortAsc" data-sort-by="price" data-sort-direction="asc">Menor Precio </button>
+                                                    <button class="subFilterBtn" id="priceSortDesc" data-sort-by="price" data-sort-direction="desc">Mayor Precio</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        @*Filters*@
+                        @foreach (var Category in Categories)
+                        {
+                            var categoryName = Category.Content.Value("nameCategory");
+                            var filterClass = categoryName.ToString().ToLower();
+                            @*SubFilters*@
+                            var blockListFilters = Category.Content.Value<IEnumerable<BlockListItem>>("filtersCategory");
+
+                            <div class="accordion-item">
+                                <button class="accordion-button collapsed mel-filter" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapse@(counter)" aria-expanded="false" aria-controls="flush-collapse@(counter)" data-filter=".@filterClass">
+                                    @categoryName
+                                </button>
+                                <div id="flush-collapse@(counter)" class="accordion-collapse collapse" data-bs-parent="#categoryGallery">
+                                    <div class="accordion-body">
+                                        @*Sub Filters*@
+                                        @foreach (var blockListFilter in blockListFilters)
+                                        {
+                                            @*Item SubFilters*@
+                                            var filterName = blockListFilter.Content.Value("filterName");
+                                            var blockListSubFilters = blockListFilter.Content.Value<IEnumerable<BlockListItem>>("subFiltersCategory");
+
+                                            <div class="accordion accordion-flush" id="subAccordion-@(counter)">
+                                                <div class="accordion-item">
+                                                    <h2 class="accordion-header">
+                                                        <button class="accordion-button collapsed filtersCategory" type="button" data-bs-toggle="collapse" data-bs-target="#subFlush-collapseOne-@(counter)" aria-expanded="false" aria-controls="subFlush-collapseOne-@(counter)">
+                                                            @filterName
+                                                        </button>
+                                                    </h2>
+                                                    <div id="subFlush-collapseOne-@(counter)" class="accordion-collapse collapse contentSubFilter">
+                                                        @foreach (var blockListSubFilter in blockListSubFilters)
+                                                        {
+                                                            var nameSubFilter = blockListSubFilter.Content.Value("nameSubFilter");
+                                                            
+                                                            @*filters class*@
+                                                            var filterBrand = nameSubFilter.ToString().ToLower();
+
+                                                            <div class="form-check">
+                                                                <button class="mel-filter subFilterBtn" type="button" data-filter=".@filterClass.@filterBrand">
+                                                                    @nameSubFilter
+                                                                </button>
+                                                            </div>
+
+                                                            radioIndex++;
+                                                        }
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            counter++;
+                                        }
+
+                                        
+                                    </div>
+                                </div>
+                            </div>
+
+                            counter++;
+                        }
+                        @*End Filters*@
+                    </div>
+                </div>
+            </div>
+
+
+            @*Card*@
+            <div class="mel-grid">
+                <div class="mel-grid-sizer"></div>
+                @foreach (var Category in Categories)
+                {
+                    @*Data filters*@
+                    var categoryName = Category.Content.Value("nameCategory");
+                    var blockListProduct = Category.Content.Value<IEnumerable<IPublishedElement>>("productList");
+                    @*filters class*@
+                    var filterClass = categoryName.ToString().ToLower();
+                    
+                    //Card
+                    foreach (var productItem in blockListProduct)
+                    {
+                        // Acceder a las propiedades del producto
+                        var productName = productItem.Value("nameProduct");
+                        var priceProduct = productItem.Value("priceProduct");
+                        var referenceProd = productItem.Value("referenceProduct");
+                        var imageProduct = productItem.Value<IPublishedContent>("imageProduct");
+
+                        @*Data filters*@
+                        var brandName = productItem.Value("brandProd");
+                        @*filters class*@
+                        var brand = brandName.ToString().ToLower();
+
+                        // Comprobamos si el productItem es de tipo IPublishedContent
+                        if (productItem is IPublishedContent publishedContent)
+                        {
+                            var productUrl = publishedContent.Url();
+
+                            if (imageProduct != null)
+                            {
+                                <a href="@productUrl">
+                                    <!-- Envuelve el contenido con el enlace -->
+                                    <div class="mel-grid-item @filterClass @brand" data-price="@priceProduct">
+                                        <div class="mel-item-wrapper">
+                                            <div class="mel-image-container" style="background-image: url(@imageProduct.Url());"></div>
+                                            <div class="mel-content">
+                                                <h3>@productName</h3>
+                                                <p>@Math.Floor(Convert.ToDecimal(priceProduct)).ToString("C0", new CultureInfo("es-CO"))</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </a>
+                            }
+                        }
+                    }
+                }
+            </div>
+            @*Card*@
+        </div>
+    </section>
+</section>
+
+<script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js'></script>
+<script src='//npmcdn.com/isotope-layout@3/dist/isotope.pkgd.js'></script>

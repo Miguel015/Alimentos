@@ -1,0 +1,21 @@
+﻿@inherits Umbraco.Cms.Web.Common.Views.UmbracoViewPage<Umbraco.Cms.Core.Models.Blocks.BlockListItem>;
+@using ContentModels = Umbraco.Cms.Web.Common.PublishedModels;
+@using Umbraco.Cms.Core.Models.Blocks;
+@using Umbraco.Cms.Core.Models;
+@using Umbraco.Cms.Web.Common;
+@inject UmbracoHelper Umbraco;
+
+@{
+    var content = (ContentModels.TitleSectionComponent)Model.Content;
+
+}
+@{
+    <section class="serction-content-title">
+        <article class="serction-content-title__content">
+            <div class="serction-content-title__content__information">
+                <h2>@content.Value("titleSection")</h2>
+                <p>@content.Value("descriptionSection")</p>
+            </div>
+        </article>
+    </section>
+}

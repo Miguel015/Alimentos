@@ -1,0 +1,41 @@
+﻿.content-information-product {
+    display: grid;
+    max-width: 1440px;
+    grid-template-columns: 40% 55%;
+    gap: 5%;
+    margin: auto;
+    padding: 10.6rem 2rem;
+}
+.title-product {
+    margin: auto;
+    padding: 3rem;
+    width: 100%;
+    max-width: 1440px;
+}
+
+.content-information-product .content-image-Product img {
+    width: 100%;
+    object-fit: cover;
+}
+
+    .content-information-product li {
+        list-style: initial;
+    }
+
+/* Breakpoints */
+@media only screen and (max-width: 800px) {
+    .content-information-product {
+        grid-template-columns: 100%;
+        gap:1rem;
+        padding: 3.6rem;
+    }
+
+        .content-information-product .content-image-Product {
+            order: 2;
+        }
+}
+@media only screen and (max-width: 500px) {
+    .content-information-product {
+        padding: 2rem 1.5rem;
+    }
+}

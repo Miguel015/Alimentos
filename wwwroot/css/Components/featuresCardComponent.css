@@ -1,0 +1,92 @@
+﻿.section-content-features-card {
+    padding: 3rem;
+    width: 100%;
+    max-width: 1920px;
+    display: flex;
+    margin: auto;
+}
+.section-content-features-card__content {
+    width: 100%;
+}
+.section-content-features-card__content__information {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+    grid-template-columns: 1.5fr 1fr;
+}
+.section-content-features-card__content__information__container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+}
+.section-content-features-card__content__information__container__content p {
+    opacity: .8;
+}
+.section-content-features-card__content__information__container__content svg {
+    font-size: 1.5rem;
+    margin: 1rem 0;
+}
+
+.section-content-features-card__content__information__container-card {
+    width: 100%;
+    max-width: 26rem;
+    margin: auto;
+}
+
+.section-content-features-card__content__information__container-card-content__image img {
+    width: 100%;
+    margin-top: -4rem;
+    margin-bottom: 1.5rem;
+    border-radius: 1rem;
+    -webkit-box-shadow: 0px 3px 18px 3px rgba(0,0,0,0.75);
+    -moz-box-shadow: 0px 3px 18px 3px rgba(0,0,0,0.75);
+    box-shadow: 0px 3px 18px 3px rgba(0,0,0,0.75);
+    transition: .8s
+}
+.section-content-features-card__content__information__container-card-content__image {
+    position: relative;
+}
+.section-content-features-card__content__information__container-card-content {
+    position: relative;
+    background-color: #fff;
+    padding: 2rem 1rem;
+    border-radius: 1rem;
+    margin-top: 2rem;
+}
+    .section-content-features-card__content__information__container-card-content:hover .section-content-features-card__content__information__container-card-content__image img {
+        scale: 1.04;
+        transition: .8s
+    }
+    .section-content-features-card__content__information__container-card-content__info p {
+        text-align: justify;
+        padding: 0 0.4rem;
+    }
+    .section-content-features-card__content__information__container-card-content__info a {
+        color: #E12C6C !important;
+        text-decoration: none;
+    }
+    linka a {
+        color: #E12C6C !important;
+        fill: #E12C6C;
+        text-decoration: none;
+    }
+@media (max-width: 1000px) {
+    .section-content-features-card__content__information {
+        grid-template-columns: 1fr;
+    }
+    .section-content-features-card__content__information__container {
+        order: 2;
+    }
+    .section-content-features-card__content__information__container-card {
+        max-width: 35rem;
+    }
+}
+
+@media (max-width: 600px) {
+    .section-content-features-card__content__information__container {
+        grid-template-columns: 1fr;
+    }
+    section.section-content-features-card {
+        padding: 7vw;
+    }
+}

@@ -1,0 +1,33 @@
+﻿.serction-content-accordeon {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+.serction-content-accordeon__content {
+    padding: 2rem 3rem;
+    width: 1920px;
+}
+.serction-content-accordeon__content__accordeon-content {
+    max-width: 1920px;
+}
+    .serction-content-accordeon__content__accordeon-content button.accordion-button {
+        background-color: #fff !important;
+        font-size: 1.1rem;
+        color: #7b809a;
+        transition: .8s;
+        font-weight: 500;
+    }
+    .serction-content-accordeon__content__accordeon-content .accordion-button:focus {
+        box-shadow: none;
+    }
+    .serction-content-accordeon__content__accordeon-content .accordion-button:not(.collapsed) {
+        color: #E12C6C;
+        font-size: 1.2rem;
+        border-color: red !important;
+        font-weight: 600;
+    }
+    .serction-content-accordeon__content__accordeon-content .accordion-body {
+        color: #7b809a;
+        opacity: .9 !important;
+        line-height: 1.5;
+    }

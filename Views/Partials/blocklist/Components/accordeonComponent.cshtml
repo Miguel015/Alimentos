@@ -1,0 +1,42 @@
+﻿@inherits Umbraco.Cms.Web.Common.Views.UmbracoViewPage<Umbraco.Cms.Core.Models.Blocks.BlockListItem>;
+@using ContentModels = Umbraco.Cms.Web.Common.PublishedModels;
+@using Umbraco.Cms.Core.Models.Blocks;
+@using Umbraco.Cms.Core.Models;
+@using Umbraco.Cms.Web.Common;
+@inject UmbracoHelper Umbraco;
+
+@{
+    var content = (ContentModels.AccordeonComponent)Model.Content;
+    var accordeonElements = content?.Value<IEnumerable<BlockListItem>>("accordeonElements").Select(x => x.Content);
+    bool isFirst = true;
+}
+@{
+    <section class="serction-content-accordeon">
+        <article class="serction-content-accordeon__content">
+            <div class="serction-content-accordeon__content__accordeon-content">
+                <div class="accordion" id="accordionExample">
+                    @foreach (var accordeonItem in accordeonElements)
+                    {
+                        // Usar un ID único para cada elemento del acordeón
+                        var accordionId = "collapse" + Guid.NewGuid().ToString();
+
+                        <div class="accordion-item">
+                            <h2 class="accordion-header" id="headingOne">
+                                <button class="accordion-button @(!isFirst ? "collapsed" : "")" type="button" data-bs-toggle="collapse" data-bs-target="#@accordionId" aria-expanded="@isFirst" aria-controls="@accordionId">
+                                    @accordeonItem.Value("titleAccordeon")
+                                </button>
+                            </h2>
+                            <div id="@accordionId" class="accordion-collapse collapse @(isFirst ? "show" : "")" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
+                                <div class="accordion-body">
+                                    @accordeonItem.Value("descriptionAccordeon")
+                                </div>
+                            </div>
+                        </div>
+
+                        isFirst = false;
+                    }
+                </div>
+            </div>
+        </article>
+    </section>
+}

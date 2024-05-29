@@ -1,0 +1,58 @@
+﻿@inherits Umbraco.Cms.Web.Common.Views.UmbracoViewPage<Umbraco.Cms.Core.Models.Blocks.BlockListItem>;
+@using ContentModels = Umbraco.Cms.Web.Common.PublishedModels;
+@using Umbraco.Cms.Core.Models.Blocks;
+@using Umbraco.Cms.Core.Models;
+@using Umbraco.Cms.Web.Common;
+@inject UmbracoHelper Umbraco;
+
+@{
+    var content = (ContentModels.ServicesComponent)Model.Content;
+    var listServices = content?.Value<IEnumerable<BlockListItem>>("listServices").Select(x => x.Content);
+    //BlockList Elements
+    //var blockServices = content.Value<IEnumerable<BlockListItem>>("category");
+
+    //Elements Component
+    var ImageServices = content.Value<IPublishedContent>("imageServices");
+    var IconServices = content.Value<IPublishedContent>("IconImageServices");
+
+}
+
+@{
+    <section class="section-Information-Component">
+        <article class="section-Information-Component__Container-information">
+            <div class="section-Information-Component__Container-information-information-card">
+                @foreach (var services in listServices)
+                {
+                    var IconServicesElement = services.Value<IPublishedContent>("iconServicesElement");
+
+                    <div class="section-Information-Component__Container-information-image-card__elements">
+                        <div class="section-Information-Component__Container-information-image-card__elements--content-icon" style="background-color: #e12c6c;">
+                            <img loading="eager" src="@IconServicesElement.Url()" alt="imageModel" class="icon-service">
+                        </div>
+                        <h2>@services.Value("titleServicesElement")</h2>
+                        <p>@services.Value("descriptionServicesElement")</p>
+                    </div>
+                }
+            </div>
+            <div class="section-Information-Component__Container-information-image-card">
+                <div class="section-Information-Component__Container-information-image-card-block"></div>
+                <img loading="eager" src="@ImageServices.Url()" alt="imageModel">
+                <div class="section-Information-Component__Container-information-image-card-block-content">
+                    <div class="section-Information-Component__Container-information-image-card-block-content-information">
+                        <img loading="eager" src="@IconServices.Url()" alt="imageModel" class="icon-card">
+                        <h2>@content.Value("titleServices")</h2>
+                        @{
+                            //Element Button
+                            var buttonCards = content.Value<IEnumerable<Link>>("buttonServices");
+                                foreach (var buttonCard in buttonCards)
+                                {
+                                <button><a href="@buttonCard.Url">@buttonCard.Name</a></button>
+                                }
+                            }
+                    </div>
+                </div>
+            </div>
+        </article>
+
+    </section>
+}

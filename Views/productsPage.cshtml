@@ -1,0 +1,65 @@
+﻿@using Umbraco.Cms.Web.Common.PublishedModels;
+@inherits Umbraco.Cms.Web.Common.Views.UmbracoViewPage
+@using Umbraco.Cms.Core.Models.Blocks;
+@using System.Globalization
+@{
+    Layout = "Master.cshtml";
+}
+
+@section head{
+        <link rel="preload" href="/css/globalComponents.css" as="style">
+        <link rel="stylesheet" href="~/css/globalComponents.css">
+        <link rel="stylesheet" href="~/css/productInformation.css">
+        <link rel="stylesheet" href="~/css/buttonCart.css">
+}
+
+@section body{
+        <script src="~/scripts/availablePage.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.js"></script>
+        <script src="~/scripts/bannerSliderHomePage.js"></script>
+
+}
+@{
+    var InfoBanners = Model.Value<IEnumerable<BlockListItem>>("contentBanner");
+    var imageProduct = Model.Value<IPublishedContent>("imageProduct");
+}
+<section class="Section-Banner-principal">
+    <article class="Article-Content-Banner">
+        <!-- Swiper -->
+        <div class="swiper mySwiper">
+            <div class="swiper-wrapper">
+                @foreach (var BannerInfo in InfoBanners)
+                {
+                    var imageBanner = BannerInfo.Content.Value<IPublishedContent>("imageBanner");
+                    <div class="swiper-slide">
+                        <div class="Contentent-Image-Banner">
+                            <img loading="eager" src="@imageBanner.Url()" alt="imageModel">
+                            <span class="mask"></span>
+                        </div>
+                        <div class="swiper-slide-Content-Banner">
+                            <h1>@BannerInfo.Content.Value("titleBanner")</h1>
+                            <p>@BannerInfo.Content.Value("descriptionBanner")</p>
+                        </div>
+                    </div>
+                }
+            </div>
+            <div class="swiper-scrollbar"></div>
+        </div>
+    </article>
+</section>
+<section class="Section-content-page ProductPage">
+    <section class="Section-content-Avaible-Prod-page">
+        <article class="content-information-product">
+            <div class="content-image-Product">
+                <img loading="eager" src="@imageProduct.Url()" alt="imageModel">
+            </div>
+            <div class="content-info-Product">
+                <h2>@Model.Value("nameProduct")</h2>
+                <h4>@Math.Floor(Convert.ToDecimal(Model.Value("priceProduct"))).ToString("C0", new CultureInfo("es-CO"))</h4>
+                <p>@Model.Value("descriptionProduct")</p>
+
+                <button class="button btn-cart"><span><span>Agregar al carrito!!</span></span></button>
+            </div>
+        </article>
+    </section>
+</section>

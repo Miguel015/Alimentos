@@ -1,0 +1,94 @@
+﻿.section-Features-variant-componentFeatures {
+    width: 100%;
+    max-width: 1920px;
+    display: grid;
+    gap: 1rem;
+    padding: 2rem;
+    margin: auto;
+}
+
+article.section-Features-variant-componentFeatures__content {
+    width: 90%;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    margin: auto;
+}
+.section-Features-variant-componentFeatures__content__principal-info {
+    width: 90%;
+    padding: 1rem;
+    margin: auto 0;
+}
+.section-Features-variant-componentFeatures__content__features-info {
+    width: 100%;
+    padding: 1rem;
+}
+.section-Features-variant-componentFeatures__content__features-info__container {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 1rem;
+    padding: 1rem;
+}
+.section-Features-variant-componentFeatures__content__principal-info h3 {
+    color: #344767;
+}
+.section-Features-variant-componentFeatures__content__principal-info p {
+    color: #7b809a;
+    line-height: 1.625;
+    font-weight: 300;
+}
+.section-Features-variant-componentFeatures__content__principal-info a {
+    color: #E12C6C !important;
+    fill: #E12C6C;
+    text-decoration: none;
+}
+.section-Features-variant-componentFeatures__content__features-info__container__content-icon {
+    width: 48px;
+    height: 48px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-image: linear-gradient(195deg,#ec407a,#d81b60);
+    box-shadow: 0 4px 20px 0 rgba(0,0,0,.14), 0 7px 10px -5px rgba(233,30,99,.4) !important;
+    border-radius: 0.5rem;
+    fill: white;
+}
+
+.section-Features-variant-componentFeatures__content__features-info__container__content-info {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+}
+    .section-Features-variant-componentFeatures__content__features-info__container__content-info p {
+        margin: 0;
+        font-weight: 300;
+        color: #7b809a;
+    }
+.section-Features-variant-componentFeatures__content__features-info__container__content-icon img {
+    filter: brightness(0) invert(1) !important;
+    width: auto;
+    height: 1.2rem;
+}
+@media (max-width: 1000px) {
+    article .section-Features-variant-componentFeatures__content {
+        grid-template-columns: 1fr !important;
+    }
+}
+
+@media (max-width: 500px) {
+    .section-Features-variant-componentFeatures {
+        padding: 1rem;
+    }
+    .section-Features-variant-componentFeatures__content__principal-info {
+        padding: 0rem;
+    }
+    .section-Features-variant-componentFeatures__content__features-info {
+        padding: 1rem 0;
+    }
+    .section-Features-variant-componentFeatures__content__features-info__container {
+        padding: 1rem 0;
+    }
+    
+}
+
+
+

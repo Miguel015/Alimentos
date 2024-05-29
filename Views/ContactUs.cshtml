@@ -1,0 +1,52 @@
+﻿@using Umbraco.Cms.Web.Common.PublishedModels;
+@inherits Umbraco.Cms.Web.Common.Views.UmbracoViewPage<ContentModels.ContactUs>
+@using ContentModels = Umbraco.Cms.Web.Common.PublishedModels;
+@using Umbraco.Cms.Core.Models.Blocks;
+@{
+    Layout = "Master.cshtml";
+    var ContactPage = Umbraco.Content(Guid.Parse("ff4e69fb-2da4-4382-9ec2-d951dff28a29"));
+    var InfoBanners = ContactPage.Value<IEnumerable<BlockListItem>>("contentBanner");
+}
+
+@section head{
+    <link rel="preload" href="/css/bannerSliderHomePage.css" as="style">
+    <link rel="stylesheet" href="~/css/bannerSliderHomePage.css">
+}
+<section class="Section-Banner-principal">
+    <article class="Article-Content-Banner">
+        <!-- Swiper -->
+        <div class="swiper mySwiper">
+            <div class="swiper-wrapper">
+                @foreach (var BannerInfo in InfoBanners)
+                {
+                    var imageBanner = BannerInfo.Content.Value<IPublishedContent>("imageBanner");
+
+                    <div class="swiper-slide">
+                        <div class="Contentent-Image-Banner">
+                            <img loading="eager" src="@imageBanner.Url()" alt="imageModel">
+                            <span class="mask"></span>
+                        </div>
+                        <div class="swiper-slide-Content-Banner">
+                            <h1>@BannerInfo.Content.Value("titleBanner")</h1>
+                            <p>@BannerInfo?.Content.Value("descriptionBanner")</p>
+                        </div>
+                    </div>
+                }
+            </div>
+            <div class="swiper-scrollbar"></div>
+        </div>
+    </article>
+</section>
+<section class="Section-content-page">
+    <section class="Section-content-page-Categories">
+        <div class="content-information-PriceList">
+            test
+        </div>
+
+    </section>
+</section>
+
+@section body{
+    <script src="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.js"></script>
+    <script src="~/scripts/bannerSliderHomePage.js"></script>
+}

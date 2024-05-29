@@ -1,0 +1,52 @@
+﻿@inherits Umbraco.Cms.Web.Common.Views.UmbracoViewPage<Umbraco.Cms.Core.Models.Blocks.BlockListItem>;
+@using ContentModels = Umbraco.Cms.Web.Common.PublishedModels;
+@using Umbraco.Cms.Core.Models.Blocks;
+@using Umbraco.Cms.Core.Models;
+@using Umbraco.Cms.Web.Common;
+@inject UmbracoHelper Umbraco;
+
+@{
+    var content = (ContentModels.FeaturesComponentVariantOne)Model.Content;
+    var featuresContentElement = content?.Value<IEnumerable<BlockListItem>>("featuresContentElement").Select(x => x.Content);
+}
+@{
+    <section class="section-Features-variant-componentFeatures">
+        <article class="section-Features-variant-componentFeatures__content">
+            <div class="section-Features-variant-componentFeatures__content__principal-info">
+                <h3>@content.Value("titleFeatures")</h3>
+                <p>@content.Value("descriptionFeatures")</p>
+                @{
+                    //Element Button
+                    var linkFeatures = content.Value<IEnumerable<Link>>("linkFeatures");
+                    foreach (var linkFeature in linkFeatures)
+                    {
+                        <a href="@linkFeature.Url">
+                            @linkFeature.Name
+                            <span class="content-icon">
+                                <svg xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 448 512">
+                                    <path d="M438.6 278.6c12.5-12.5 12.5-32.8 0-45.3l-160-160c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L338.8 224 32 224c-17.7 0-32 14.3-32 32s14.3 32 32 32l306.7 0L233.4 393.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0l160-160z" />
+                                </svg>
+                            </span>
+                        </a>
+                    }
+                }
+            </div>
+
+            <div class="section-Features-variant-componentFeatures__content__features-info">
+                @foreach (var infoFeatures in featuresContentElement)
+                {
+                    var iconFeatures = infoFeatures.Value<IPublishedContent>("iconFeatures");
+
+                    <div class="section-Features-variant-componentFeatures__content__features-info__container">
+                        <div class="section-Features-variant-componentFeatures__content__features-info__container__content-icon">
+                            <img loading="eager" src="@iconFeatures.Url()" alt="icon-group-cards" class="icon-group-cards">
+                        </div>
+                        <div class="section-Features-variant-componentFeatures__content__features-info__container__content-info">
+                            <p>@infoFeatures.Value("descriptionElementFeatures")</p>
+                        </div>
+                    </div>
+                }
+            </div>
+        </article>
+    </section>
+}

@@ -1,0 +1,79 @@
+﻿@using Umbraco.Cms.Web.Common.PublishedModels;
+@inherits Umbraco.Cms.Web.Common.Views.UmbracoViewPage<ContentModels.PriceList>
+@using ContentModels = Umbraco.Cms.Web.Common.PublishedModels;
+@using Umbraco.Cms.Core.Models.Blocks;
+@using Umbraco.Cms.Core.Models.PublishedContent;
+
+@{
+    Layout = "Master.cshtml";
+
+    // Intentamos obtener el contenido de PriceList
+    var PriceList = Umbraco.Content(Guid.Parse("21f56a47-b4c1-4986-83e1-9a1e894030f2"));
+    var InfoBanners = PriceList?.Value<IEnumerable<BlockListItem>>("contentBanner");
+    var pdfFilePath = PriceList?.Value<string>("filePDF");
+    string pdfUrl = !string.IsNullOrEmpty(pdfFilePath) ? Url.Content(pdfFilePath) : null;
+}
+
+@section head{
+    <link rel="preload" href="/css/bannerSliderHomePage.css" as="style">
+    <link rel="stylesheet" href="~/css/bannerSliderHomePage.css">
+}
+
+<section class="Section-Banner-principal">
+    <article class="Article-Content-Banner">
+        <!-- Swiper -->
+        <div class="swiper mySwiper">
+            <div class="swiper-wrapper">
+                @if (InfoBanners != null)
+                {
+                    @foreach (var BannerInfo in InfoBanners)
+                    {
+                        var imageBanner = BannerInfo.Content.Value<IPublishedContent>("imageBanner");
+
+                        <div class="swiper-slide">
+                            <div class="Contentent-Image-Banner">
+                                <img loading="eager" src="@imageBanner?.Url()" alt="imageModel">
+                                <span class="mask"></span>
+                            </div>
+                            <div class="swiper-slide-Content-Banner">
+                                <h1>@BannerInfo.Content.Value("titleBanner")</h1>
+                                <p>@BannerInfo?.Content.Value("descriptionBanner")</p>
+                            </div>
+                        </div>
+                    }
+                }
+                else
+                {
+                    <div class="swiper-slide">
+                        <p>No banners available.</p>
+                    </div>
+                }
+            </div>
+            <div class="swiper-scrollbar"></div>
+        </div>
+    </article>
+</section>
+
+<section class="Section-content-page">
+    <section class="Section-content-page-Categories">
+        <div class="content-information-PriceList">
+            @Html.GetBlockListHtml(Model, "mainContent")
+        </div>
+
+        <div class="Content_PDF">
+            @if (!string.IsNullOrEmpty(pdfUrl))
+            {
+                <iframe src="@pdfUrl" width="100%" height="600px" style="border:none;"></iframe>
+            }
+            else
+            {
+                <p>No PDF available.</p>
+            }
+        </div>
+    </section>
+</section>
+
+@section body{
+    <script src="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.js"></script>
+    <script src="~/scripts/bannerSliderHomePage.js"></script>
+}

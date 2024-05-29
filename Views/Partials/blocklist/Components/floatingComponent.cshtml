@@ -1,0 +1,20 @@
+﻿@inherits Umbraco.Cms.Web.Common.Views.UmbracoViewPage<Umbraco.Cms.Core.Models.Blocks.BlockListItem>;
+@using ContentModels = Umbraco.Cms.Web.Common.PublishedModels;
+@using Umbraco.Cms.Core.Models.Blocks;
+@using Umbraco.Cms.Core.Models;
+@using Umbraco.Cms.Web.Common;
+@inject UmbracoHelper Umbraco;
+
+@{
+    var content = (ContentModels.FloatingComponent)Model.Content;
+    var floatingContent = content?.Value<BlockListModel>("floatingContent");
+}
+
+@{
+    <section class="Section-content-page">
+        <section class="Section-content-page-Categories">
+            @*Llama mas elementos de la lista*@
+            @Html.GetBlockListHtml(floatingContent)
+        </section>
+    </section>
+}

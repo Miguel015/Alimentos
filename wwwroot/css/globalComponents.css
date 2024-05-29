@@ -1,0 +1,46 @@
+﻿/*Styles Componens*/
+@import url("./components/bannerSliderHomePage.css");
+@import url("./components/floatingComponent.css");
+@import url("./components/characteristicsComponent.css");
+@import url("./components/servicesComponent.css");
+@import url("./components/groupCardsBannerComponent.css");
+@import url("./components/featuresComponentVariantOne.css");
+@import url("./components/titleSectionComponent.css");
+@import url("./components/accordeonComponent.css");
+@import url("./components/bannerInformationComponent.css");
+@import url("./components/featuresCardComponent.css");
+
+
+
+h1, h2, h3, h4, h5, h6 {
+    color: #252f40;
+}
+p {
+    color: #67748e;
+}
+.icon-shopping-cart svg {
+    fill: #ff196d !important;
+}
+
+.content-icon svg {
+    fill: #E12C6C !important;
+}
+/*
+@media (max-width: 1440px) {
+    
+}
+@media (max-width: 763px) {
+    
+}
+
+@media (max-width: 500px) {
+    
+}
+*/
+
+.Content_PDF {
+    padding: 2rem 3rem;
+    width: 100%;
+    max-width: 70rem;
+    margin: auto;
+}

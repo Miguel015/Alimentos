@@ -1,0 +1,75 @@
+﻿@using Umbraco.Cms.Core.Models.Blocks;
+@using Umbraco.Cms.Web.Common.PublishedModels;
+@inherits Umbraco.Cms.Web.Common.Views.UmbracoViewPage<ContentModels.ShoppingCart>
+@using ContentModels = Umbraco.Cms.Web.Common.PublishedModels;
+@using PCMarketIA.Models;
+@using Umbraco.Cms.Core.Services;
+@model Umbraco.Cms.Web.Common.PublishedModels.ShoppingCart
+
+@{
+    Layout = "Master.cshtml";
+    var ShoppingCart = Umbraco.Content(Guid.Parse("9284ab78-45b3-4ffb-be3e-34c2d64fb0c0"));
+    var InfoBanners = ShoppingCart.Value<IEnumerable<BlockListItem>>("contentBanner");
+}
+@section head{
+    <link rel="stylesheet" href="~/css/availablePage.css">
+    <link rel="stylesheet" href="~/css/shoppingCart.css">
+    <link rel="preload" href="/css/globalComponents.css" as="style">
+    <link rel="stylesheet" href="~/css/globalComponents.css">
+}
+
+<!-- SDK de MercadoPago -->
+        <script src="https://sdk.mercadopago.com/js/v2"></script>
+
+<section class="Section-Banner-principal">
+    <article class="Article-Content-Banner">
+        <!-- Swiper -->
+        <div class="swiper mySwiper">
+            <div class="swiper-wrapper">
+                @foreach (var BannerInfo in InfoBanners)
+                {
+                    var imageBanner = BannerInfo.Content.Value<IPublishedContent>("imageBanner");
+
+                    <div class="swiper-slide">
+                        <div class="Contentent-Image-Banner">
+                            <img loading="eager" src="@imageBanner.Url()" alt="imageModel">
+                            <span class="mask"></span>
+                        </div>
+                        <div class="swiper-slide-Content-Banner">
+                            <h1>@BannerInfo.Content.Value("titleBanner")</h1>
+                            <p>@BannerInfo.Content.Value("descriptionBanner")</p>
+                        </div>
+                    </div>
+                }
+            </div>
+            <div class="swiper-scrollbar"></div>
+        </div>
+    </article>
+</section>
+
+<section class="Section-content-page">
+    <section class="Section-content-page-Categories">
+            <div class="content-information-shoppingCart">
+                <div id="productosCarrito">
+                    @*Contenido Carrito*@
+                </div>
+                <div class="content-order-buy">
+                    <div class="info-buys">
+                    </div>
+                    <div class="mercadoPago">
+                        <!-- Input para el monto -->
+                    <button id="checkout-btn" class="Confirmar-pedido dd2567">Checkout</button>
+                        <!-- Contenedor para el botón de checkout de MercadoPago -->
+                        <div id="button-checkout"></div>
+                    </div>
+                </div>
+            </div>
+        
+    </section>
+</section>
+
+
+@section body{
+    <script src="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.js"></script>
+    <script src="~/scripts/bannerSliderHomePage.js"></script>
+}

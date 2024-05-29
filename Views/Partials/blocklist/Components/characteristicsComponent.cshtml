@@ -1,0 +1,75 @@
+﻿@inherits Umbraco.Cms.Web.Common.Views.UmbracoViewPage<Umbraco.Cms.Core.Models.Blocks.BlockListItem>;
+@using ContentModels = Umbraco.Cms.Web.Common.PublishedModels;
+@using Umbraco.Cms.Core.Models.Blocks;
+@using Umbraco.Cms.Core.Models;
+@using Umbraco.Cms.Web.Common;
+@inject UmbracoHelper Umbraco;
+
+@{
+    var content = (ContentModels.CharacteristicsComponent)Model.Content;
+    var listCharacteristics = content?.Value<IEnumerable<BlockListItem>>("listCharacteristics").Select(x => x.Content);
+}
+
+@{
+    <section class="section-Characteristics">
+    <article class="section-Characteristics__Container-Characteristics">
+        @foreach (var Characteristics in listCharacteristics)  
+        {
+            <div class="section-Characteristics__Container-Characteristics__Element-Characteristics">
+                <div class="content-title">
+                    <h1 class="text-gradient counter" data-target="@Characteristics.Value("characteristics")">
+                        @Characteristics.Value("characteristics")
+                        </h1>
+                     <h1 class="text-gradient">@Characteristics.Value("spanTitleCharacteristics")</h1>
+                </div>
+                <h2>@Characteristics.Value("titleCharacteristics")</h2>
+                <p>@Characteristics.Value("descriptionCharacteristics")</p>
+            </div>
+        }
+        </article>
+    </section>
+    
+    <script>
+        @*Contador Title*@
+            document.addEventListener("DOMContentLoaded", function () {
+                // Obtener todos los elementos con la clase 'counter'
+                var counters = document.querySelectorAll('.counter');
+
+                counters.forEach(function (counterElement) {
+                    // Obtener el número objetivo del atributo de datos
+                    var targetNumber = parseInt(counterElement.dataset.target);
+
+                    // Inicializar el contador
+                    var currentNumber = 0;
+
+                    // Configurar el intervalo inicial rápido
+                    var intervalTime = 20; // Intervalo rápido
+                    var interval;
+
+                    // Función para actualizar el contador
+                    var updateCounter = function () {
+                        if (currentNumber < targetNumber) {
+                            currentNumber++;
+                            counterElement.textContent = currentNumber;
+
+                            // Ajustar el intervalo a medida que el contador se acerca al objetivo
+                            var remaining = targetNumber - currentNumber;
+                            if (remaining < 10) {
+                                // Cuando falten menos de 10, ralentizar el contador
+                                intervalTime = 100; // Intervalo lento
+                            }
+
+                            // Reiniciar el intervalo con el nuevo tiempo
+                            clearInterval(interval);
+                            interval = setInterval(updateCounter, intervalTime);
+                        } else {
+                            clearInterval(interval);
+                        }
+                    };
+
+                    // Iniciar el contador
+                    interval = setInterval(updateCounter, intervalTime);
+                });
+            });
+    </script>
+}
